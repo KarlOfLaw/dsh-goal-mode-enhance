@@ -25,6 +25,7 @@
 - **多行编辑/创建**：目标内容用多行文本框（自动换行、可拖高、`Ctrl+Enter` 提交），可同框设置轮次上限
 - **Composer 工具行入口**（`conversation.input.left`）：`◎` 目标按钮 + 阶段色点（绿=进行中 / 黄=暂停 / 红=阻塞），点击展开/收起目标栏；目标栏可折叠为内容自适应胶囊
 - **General 设置开关**（`settings.general.item`）：「在输入框工具行显示目标入口」，经 `ui-goal-mode` 设置命名空间持久化
+- **独立「目标」设置页**（`settings.section`）：展示当前会话的目标状态、轮次和紧凑目标预览，长目标可按需展开，并附使用说明
 - **零空闲干扰**：未设置目标时，composer 上方不渲染任何内容（除非创建表单显式打开）
 
 ## 原理
@@ -34,7 +35,7 @@
 | 数据展示 | `useProjection('goal')` 实时投影（含实时 `roundsStarted`），零轮询 |
 | 操作通道 | `ctx.remote.goals`（web 装配的 api-remotes 挂载的 Remote 命名空间），带 CAS revision 乐观并发 |
 | 偏好持久化 | host 半注册 `ui-goal-mode` 设置命名空间，client 策略镜像 Host 段落 |
-| UI 落点 | `conversation.input.dock`（goal 单元，priority -10 覆盖内置条）、`conversation.input.left`、`settings.general.item` |
+| UI 落点 | `conversation.input.dock`（goal 单元，priority -10 覆盖内置条）、`conversation.input.left`、`settings.general.item`、`settings.section` |
 | 图标 | 内联 SVG 线条图标（Feather 风格，`currentColor` 随主题） |
 
 数据本身存储在会话日志（`goal/change` 事件），持久化由引擎保证，插件只负责展示与操作。
@@ -56,6 +57,7 @@ dsh-goal-mode/
 │       ├── index.ts          # 插件主体：注册 dock 条 / composer 入口 / 设置行
 │       ├── GoalBar.tsx       # 目标栏 / 创建 / 编辑 / 胶囊 / composer 按钮
 │       ├── ComposerEntryRow.tsx  # 设置开关行
+│       ├── GoalSettingsSection.tsx # 独立目标设置页
 │       ├── settings-policy.ts    # 偏好策略（Host 设置镜像）
 │       ├── store.ts          # 查看状态（页面内）
 │       ├── slots.ts / locales.ts / styles.ts

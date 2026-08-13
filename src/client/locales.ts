@@ -29,6 +29,12 @@ export const zh = {
   'expand': '展开目标栏',
   'settings.composerEntry.title': '在输入框工具行显示目标入口',
   'settings.composerEntry.description': '关闭后输入框上方的目标工具入口不再显示，目标条仍可通过其他方式使用',
+  'settings.section.nav': '目标',
+  'settings.section.current': '当前目标',
+  'settings.section.empty': '当前没有目标。可以点输入框旁的 ◎ 按钮创建，或直接对 agent 说「设定目标：…」。',
+  'settings.section.howto': '如何使用',
+  'settings.section.howto.body': '目标创建后，agent 会在每轮结束后自动续跑直到完成；可在输入框上方的目标栏暂停、恢复、编辑、完成或清除目标。',
+  'settings.section.full': '查看完整目标',
 } satisfies Record<string, string>
 
 /** The goal-mode namespace key union. */
@@ -63,6 +69,12 @@ export const en = {
   'expand': 'Expand goal bar',
   'settings.composerEntry.title': 'Show the goal entry in the composer tool row',
   'settings.composerEntry.description': 'When off, the goal tool-row entry above the input hides; the goal bar stays usable',
+  'settings.section.nav': 'Goals',
+  'settings.section.current': 'Current goal',
+  'settings.section.empty': 'No goal is set. Click the ◎ button next to the input, or tell the agent “Set a goal: …”.',
+  'settings.section.howto': 'How to use',
+  'settings.section.howto.body': 'Once a goal is set, the agent keeps working on it after every round until it completes; pause, resume, edit, complete, or clear it from the goal bar above the input.',
+  'settings.section.full': 'View full goal',
 } satisfies Record<GoalModeKey, string>
 
 /** The goal-mode locale namespace. */

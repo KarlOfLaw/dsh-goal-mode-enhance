@@ -26,6 +26,7 @@ import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
 import type { GoalProjection, GoalRef } from '@deepseek-ai/dsh-goal/client'
 import type { GoalModeActionResult, GoalModeActions } from './slots.ts'
 import { ComposerEntryRow, type ComposerEntryRowInjected } from './ComposerEntryRow.tsx'
+import { GoalSettingsSection, type GoalSettingsSectionInjected } from './GoalSettingsSection.tsx'
 import { GoalComposerButton, GoalDock } from './GoalBar.tsx'
 import { GoalModeSettingsPolicy } from './settings-policy.ts'
 import { createGoalModeViewStore, type GoalModeViewHandle } from './store.ts'
@@ -53,17 +54,24 @@ export interface GoalModeViewInjected {
  * @param ctx - client root context.
  */
 export function apply(ctx: ClientContext): void {
-  // The stylesheet: one injected <style> element, idempotent across HMR.
-  if (typeof document !== 'undefined' && document.getElementById(STYLE_ID) === null) {
-    const tag = document.createElement('style')
-    tag.id = STYLE_ID
-    tag.textContent = cssText
-    document.head.appendChild(tag)
+  // Keep the stable style node, but refresh its text when a newer local plugin
+  // bundle is loaded into an already-open web page.
+  if (typeof document !== 'undefined') {
+    const existing = document.getElementById(STYLE_ID)
+    if (existing instanceof HTMLStyleElement) {
+      existing.textContent = cssText
+    } else {
+      const tag = document.createElement('style')
+      tag.id = STYLE_ID
+      tag.textContent = cssText
+      document.head.appendChild(tag)
+    }
   }
 
   ctx.effect(() => ctx.locale.register(NS, { zh, en }), 'dsh-goal-mode: dictionaries')
 
   const sessions = ctx.sessions
+  const t = ctx.locale.bind(NS)
 
   /** The session's current projected CAS ref, read at verb call time (no staleness fence: the RPC's CAS is the guard). */
   const refOf = (sessionId: SessionId): GoalRef | undefined => {
@@ -161,4 +169,15 @@ export function apply(ctx: ClientContext): void {
       setComposerEntryVisible: (visible) => { settingsPolicy.setComposerEntryVisible(visible) },
     }),
   }, ComposerEntryRow))
+
+  // The goal-mode settings page: current goal card + guidance. Registers a
+  // dedicated section so the settings sidebar shows a "目标" entry.
+  ctx.slots.inject('settings.section', () => ctx.slots.register({
+    name: 'settings.section',
+    id: 'goal-mode',
+    order: 25,
+    label: () => t('settings.section.nav'),
+    locale: NS,
+    inject: (): GoalSettingsSectionInjected => ({ hooks: { sessions: ctx.sessions.list } }),
+  }, GoalSettingsSection))
 }

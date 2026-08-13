@@ -285,9 +285,16 @@ export const cssText = `
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 4px 2px;
-  max-height: calc(100vh - 140px);
-  overflow-y: auto;
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  min-height: 0;
+  padding: 4px 2px 12px;
+  box-sizing: border-box;
+  overflow: visible;
+}
+.dsh_gm_settings > * {
+  flex: 0 0 auto;
 }
 .dsh_gm_settingsTitle {
   font-size: 13px;
@@ -304,10 +311,59 @@ export const cssText = `
   flex-direction: column;
   gap: 6px;
 }
+.dsh_gm_settingsPageCard {
+  flex: 0 0 auto !important;
+  align-self: stretch;
+  width: 100%;
+  height: fit-content !important;
+  min-height: 0 !important;
+  box-sizing: border-box;
+}
+.dsh_gm_settingsHelpCard {
+  display: block !important;
+}
+.dsh_gm_settingsHelp {
+  display: block !important;
+  height: auto !important;
+  min-height: 0 !important;
+  color: var(--dsw-alias-label-primary-dimmed);
+  font-size: 13px;
+  line-height: 20px !important;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
 .dsh_gm_settingsRow {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+.dsh_gm_settingsObjective {
+  color: var(--dsw-alias-label-primary-dimmed);
+  font-size: 13px;
+  line-height: 20px;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+.dsh_gm_settingsDetails {
+  color: var(--dsw-alias-label-secondary);
+  font-size: 12px;
+}
+.dsh_gm_settingsDetails summary {
+  cursor: pointer;
+  width: fit-content;
+  user-select: none;
+}
+.dsh_gm_settingsObjectiveFull {
+  margin-top: 8px;
+  max-height: 260px;
+  overflow: auto;
+  border-top: 1px solid var(--dsw-alias-border-l1);
+  padding-top: 8px;
+  color: var(--dsw-alias-label-primary-dimmed);
+  font-size: 12px;
+  line-height: 19px;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
 }
 .dsh_gm_switch {
   position: relative;
