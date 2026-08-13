@@ -1,39 +1,45 @@
 # 安装指南
 
-本插件是 DeepSeek Harness 的**动态 Cordis 插件**：无需改代码、无需构建，由你的 agent 在会话内用 `cordis_define` + `cordis_run` 加载即可。
+本仓库提供两种形态：**A 正式插件包**（推荐，稳定、可注册安装）与 **B 动态插件源码**（备选，会话内加载）。
 
-## 方式 A：把仓库交给 agent（推荐）
+## 形态 A：正式插件（推荐）
 
-在你任意一个 DSH 会话里，把下面这段发给 agent（或直接把本仓库地址/文件贴给它）：
+### 方式 A1：本地构建后安装
 
-```
-请帮我加载 goal 模式插件（dsh-goal-mode-enhance）：
-1. 读取本仓库的 host.js 作为 code.host、client.js 作为 code.client；
-2. 用 cordis_define 创建插件（idPrefix 用 goal，name 用 goal-mode，
-   purpose 写一句功能说明）；
-3. 用 cordis_run 启动（mode: run）；
-4. 我会在界面上批准运行卡片的授权，批准后告诉我结果。
-```
+要求：Node.js + pnpm（插件依赖 dsh 源码做类型解析，见 `package.json` 的 `link:../dsh-src/...` devDependencies；若无本地 dsh 源码，可用 A2 或直接使用已构建产物）。
 
-agent 会自动完成定义与启动；你在运行卡片上点「允许」（建议同时勾选"始终允许"）。
+```sh
+# 1. 安装依赖并构建
+pnpm install
+pnpm run build
 
-## 方式 B：手动加载
+# 2. 装进 web profile
+dsh plugin --profile web add file:/path/to/dsh-goal-mode
 
-把 `host.js` / `client.js` 的内容分别作为 `code.host` / `code.client` 提交：
-
-```
-cordis_define → plugin.kind: new, idPrefix: goal, name: goal-mode
-              → code.host = host.js 内容
-              → code.client = client.js 内容
-cordis_run    → mode: run
+# 3. 重启 dsh web（或刷新页面）
 ```
 
-## 卸载
+卸载：
 
-在会话里让 agent 执行 `cordis_stop`（临时停用，保留版本）或 `cordis_undefine`（彻底删除）。停止后原生 goal bar 自动恢复。
+```sh
+dsh plugin --profile web remove dsh-goal-mode
+```
+
+### 更新本地插件
+
+`file:` 协议的本地依赖，pnpm 用 link 处理（不校验内容变化），`pnpm add --force` 不会刷新旧 bundle。更新请任选其一：
+
+- **版本号递增**后重新 `add`；
+- 先 `remove` 再 `add`；
+- 或手动把构建产物（`lib/`）同步进 profile 的 `node_modules/dsh-goal-mode/`。
+
+## 形态 B：动态插件（备选）
+
+在任意 DSH 会话里，把 `host.js` / `client.js` 的内容分别作为 `code.host` / `code.client`，用 `cordis_define` + `cordis_run` 加载（idPrefix `goal`，name `goal-mode`）。详情见两个文件顶部注释。
+
+> 形态 B 是会话级：每个会话需各自加载一次，页面刷新需重新激活。
 
 ## 注意事项
 
-- 插件是**会话级**的：每个会话需要各自加载一次。
 - 目标是**会话级**的：bar 显示的是当前会话的目标。
-- 目标数据持久化在会话日志中，插件重启不丢失；**历史记录列表**是插件运行期间内存累积的，插件重启后重新开始记录。
+- 目标数据持久化在会话日志中，插件重启不丢失。

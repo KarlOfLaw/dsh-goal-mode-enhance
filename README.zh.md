@@ -4,7 +4,7 @@
 
 把原本只能靠对话命令（`/goal`）和模型工具（`create_goal` / `get_goal` / `update_goal`）操作的目标系统，变成**看得见、点得动**的界面。
 
-English | [中文](README.zh.md)
+[English](README.md) | 中文
 
 ## 两种形态
 
