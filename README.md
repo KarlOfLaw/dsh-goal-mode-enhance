@@ -1,4 +1,4 @@
-# dsh-goal-mode
+# dsh-goal-mode-enhance
 
 为 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 提供**可视化 goal 模式**的动态 Cordis 插件。
 
@@ -42,7 +42,7 @@
 ## 仓库结构
 
 ```
-dsh-goal-mode/
+dsh-goal-mode-enhance/
 ├── host.js      # code.host 半体（Node 进程：RPC + 历史 + goal_overview 工具）
 ├── client.js    # code.client 半体（浏览器：Goal 栏 / 头部 / 设置页）
 ├── INSTALL.md   # 安装与加载指南

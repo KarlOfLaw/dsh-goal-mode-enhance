@@ -7,7 +7,7 @@
 在你任意一个 DSH 会话里，把下面这段发给 agent（或直接把本仓库地址/文件贴给它）：
 
 ```
-请帮我加载 goal 模式插件（dsh-goal-mode）：
+请帮我加载 goal 模式插件（dsh-goal-mode-enhance）：
 1. 读取本仓库的 host.js 作为 code.host、client.js 作为 code.client；
 2. 用 cordis_define 创建插件（idPrefix 用 goal，name 用 goal-mode，
    purpose 写一句功能说明）；

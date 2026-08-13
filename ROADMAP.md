@@ -1,4 +1,4 @@
-# 路线图：把 dsh-goal-mode 装进 DeepSeek Harness 本体
+# 路线图：把 dsh-goal-mode-enhance 装进 DeepSeek Harness 本体
 
 > 终极目标：不再需要"会话内 cordis_define + 审批"，而是 DSH 启动即自带、所有会话可用。
 > 当前形态：动态 Cordis 插件（会话级、页面刷新需重载、激活需审批）。
@@ -15,7 +15,7 @@
 ## 分阶段实施
 
 ### 阶段一：源码仓库化（✅ 已完成）
-`dsh-goal-mode/` 仓库：`host.js` / `client.js`（= pkg-13 代码）、`README.md`、`INSTALL.md`、`LICENSE`。
+`dsh-goal-mode-enhance/` 仓库：`host.js` / `client.js`（= pkg-13 代码）、`README.md`、`INSTALL.md`、`LICENSE`。
 交付物：任何人可复制代码在任意会话加载。
 
 ### 阶段二：移植为 DSH 官方插件结构（主体工作）
@@ -36,7 +36,7 @@
 - 在本地 GUI 验证：Goal 栏/头部/设置页/多会话总览全链路
 
 ### 阶段四：分发
-- **路线 A（推荐起步）**：先以独立 npm 包发布（`@your-name/dsh-goal-mode`），README 说明如何把它加入部署的 web 插件表（`dsh.client` 扫描）——无需上游合并即可让同版本部署者安装。
+- **路线 A（推荐起步）**：先以独立 npm 包发布（`@your-name/dsh-goal-mode-enhance`），README 说明如何把它加入部署的 web 插件表（`dsh.client` 扫描）——无需上游合并即可让同版本部署者安装。
 - **路线 B（正式）**：向 deepseek-ai/deepseek-harness 提交 PR。需要：过 lint/typecheck/test、附截图与用法说明、遵循贡献指南。合并后随 DSH 版本自带。
 
 ### 阶段五：维护
@@ -54,7 +54,7 @@
 
 ## 建议节奏
 
-1. 先把 `dsh-goal-mode` 仓库推到 GitHub（README 已备好）；
+1. 先把 `dsh-goal-mode-enhance` 仓库推到 GitHub（README 已备好）；
 2. 我（或你）按阶段二移植出第一个静态版本，跑通本地构建；
 3. 稳定后走路线 B 提交 PR；期间路线 A 让其他部署先用上。
 
