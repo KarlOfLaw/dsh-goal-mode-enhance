@@ -42,7 +42,7 @@
 
 ## 安装
 
-- **形态 A（正式插件）**：见 [INSTALL.md](./INSTALL.md)。
+- **形态 A（正式插件）**：推荐直接使用 [Release 预构建 tarball](https://github.com/KarlOfLaw/dsh-goal-mode-enhance/releases/latest/download/dsh-goal-mode-0.1.0.tgz)——`dsh plugin --profile web add <tgz 路径>` 后重启即可；开发者本地构建方式见 [INSTALL.md](./INSTALL.md)。已验证的 DSH 版本兼容性结论见 [COMPATIBILITY.md](./COMPATIBILITY.md)。
 - **形态 B（动态插件）**：见 `host.js` / `client.js` 顶部注释，会话内 `cordis_define` + `cordis_run` 加载。
 
 ## 仓库结构
