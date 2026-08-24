@@ -28,6 +28,20 @@
 - **独立「目标」设置页**（`settings.section`）：展示当前会话的目标状态、轮次和紧凑目标预览，长目标可按需展开，并附使用说明
 - **零空闲干扰**：未设置目标时，composer 上方不渲染任何内容（除非创建表单显式打开）
 
+## 截图
+
+**目标栏——完成态（与原生任务条同屏共存）**
+
+![goal dock with native todo strip](assets/screenshot-goal-dock.png)
+
+**创建表单（多行目标 + 轮次上限）**
+
+![goal create form](assets/screenshot-goal-create.png)
+
+**折叠胶囊（工具行入口点击展开/收起）**
+
+![collapsed goal chip](assets/screenshot-goal-chip.png)
+
 ## 原理
 
 | 部分 | 实现 |
