@@ -3,3 +3,6 @@ coverage/
 *.tsbuildinfo
 .DS_Store
 lib/
+
+*.tgz
+debug.log
