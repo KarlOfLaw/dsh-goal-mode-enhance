@@ -3,6 +3,10 @@
   "description": "Enhanced goal surface for the DeepSeek Harness web UI: full lifecycle dock above the composer (create / multiline edit / pause / resume / complete / clear with live round progress), a composer tool-row entry with phase dot, a collapsible chip, and a General-settings switch to hide the entry.",
   "version": "0.1.0",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KarlOfLaw/dsh-goal-mode-enhance.git"
+  },
   "type": "module",
   "main": "lib/index.js",
   "exports": {
