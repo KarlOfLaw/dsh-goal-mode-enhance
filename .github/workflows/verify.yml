@@ -1,0 +1,29 @@
+name: Verify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # devDependencies use pnpm `link:` paths that only exist next to a local
+      # deepseek-harness checkout, so CI strips them and installs just the two
+      # packages the bundle step needs — every `@deepseek-ai/dsh-*` import stays
+      # external (declared optional-peer, provided by the host profile).
+      - name: Build the installable bundle
+        run: |
+          node -e "const f='./package.json',p=require(f);delete p.devDependencies;delete p.scripts;require('fs').writeFileSync(f,JSON.stringify(p,null,2))"
+          npm install --no-save esbuild@^0.25.0 @deepseek-ai/schemastery@^3.18.1
+          node build.mjs
+      - name: Check bundle output
+        run: |
+          test -f lib/index.js
+          test -f lib/client.js
+          test -f lib/invariant.js
